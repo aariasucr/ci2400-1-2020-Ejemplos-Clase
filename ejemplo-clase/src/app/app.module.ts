@@ -3,11 +3,16 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+import {LoginComponent} from './login/login.component';
+import {HomeComponent} from './home/home.component';
+import {FormsModule} from '@angular/forms';
+import {UserService} from './shared/user.service';
+import {RouteGuard} from './shared/route-guard';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [],
+  declarations: [AppComponent, LoginComponent, HomeComponent],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  providers: [UserService, RouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
