@@ -1,4 +1,6 @@
 import {Injectable, EventEmitter} from '@angular/core';
+import * as firebase from 'firebase';
+import {UserData} from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +11,14 @@ export class UserService {
 
   constructor() {}
 
-  performLogin() {
-    this.isLoggedIn = true;
+  performLogin(uid: string) {
+    this.getUserDataFromFirebase(uid).then(result => {
+      // console.log(result.val());
+      this.isLoggedIn = true;
+      const userData: UserData = result.val();
 
-    const userData = {
-      username: 'test123',
-      fullName: 'Juan Vainas'
-    };
-
-    this.statusChange.emit(userData);
+      this.statusChange.emit(userData);
+    });
   }
 
   isUserLoggedIn() {
@@ -25,7 +26,20 @@ export class UserService {
   }
 
   performLogout() {
-    this.isLoggedIn = false;
-    this.statusChange.emit(null);
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.isLoggedIn = false;
+        this.statusChange.emit(null);
+      });
+  }
+
+  getUserDataFromFirebase(uid: string) {
+    return firebase
+      .database()
+      .ref('users')
+      .child(uid)
+      .once('value');
   }
 }
