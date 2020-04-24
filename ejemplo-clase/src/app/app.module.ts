@@ -17,9 +17,10 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {SpinnerService} from './shared/spinner.service';
 import { AuthorComponent } from './author/author.component';
 import { NotificationComponent } from './notification/notification.component';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, HeaderComponent, AuthorComponent, NotificationComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, HeaderComponent, AuthorComponent, NotificationComponent, FileUploaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

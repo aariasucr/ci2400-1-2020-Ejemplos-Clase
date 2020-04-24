@@ -27,7 +27,7 @@ export class PostService {
   //   this.posts.push(newPost);
   // }
 
-  addNewPostAsync(title: string, content: string, author: string) {
+  addNewPostAsync(title: string, content: string, author: string, imgUrl: string) {
     const firebaseUserId = firebase.auth().currentUser.uid;
     const newPostKey = firebase
       .database()
@@ -41,7 +41,7 @@ export class PostService {
       title: title,
       created: new Date().getTime(),
       creationDate: new Date().toString(),
-      img: 'https://placeimg.com/320/240/any/sepia'
+      img: imgUrl
     };
 
     // Objeto con todos los cambios por aplicar en la base de datos de Firebase

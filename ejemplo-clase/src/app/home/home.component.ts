@@ -15,6 +15,8 @@ import {UserService} from '../shared/user.service';
 export class HomeComponent implements OnInit {
   private posts: PostData[] = [];
   postsRef: any;
+  author = '';
+  uploadedFileUrl = '';
 
   constructor(
     private postService: PostService,
@@ -27,12 +29,14 @@ export class HomeComponent implements OnInit {
     // this.posts = this.postService.getAllPosts();
     // console.log(this.posts);
 
+    this.author = firebase.auth().currentUser.uid;
+
     // Creo una referencia a la coleccion de "posts" en la base de datos
     // con ciertas reglas de cantidad y filtrado
     this.postsRef = firebase
       .database()
       .ref('posts')
-      .child(firebase.auth().currentUser.uid)
+      .child(this.author)
       .limitToLast(100)
       .orderByChild('created');
 
@@ -61,7 +65,7 @@ export class HomeComponent implements OnInit {
 
     this.userService.getUserDataFromFirebase(firebase.auth().currentUser.uid).then(userData => {
       this.postService
-        .addNewPostAsync(title, content, userData.val().userName)
+        .addNewPostAsync(title, content, userData.val().userName, this.uploadedFileUrl)
         .then(results => {
           this.notificationServie.showSuccessMessage('Todo bien!', 'Publicación Creada');
           form.reset();
@@ -73,5 +77,10 @@ export class HomeComponent implements OnInit {
           this.spinnerService.hideMainSpinner();
         });
     });
+  }
+
+  onImagePicked(imageUrl: string) {
+    console.log('url en firebase listo para guardar en la base de datos', imageUrl);
+    this.uploadedFileUrl = imageUrl;
   }
 }
