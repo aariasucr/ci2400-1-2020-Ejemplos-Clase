@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input} from '@angular/core';
 import * as firebase from 'firebase';
+import Chance from 'chance';
 
 @Component({
   selector: 'app-file-uploader',
@@ -30,7 +31,7 @@ export class FileUploaderComponent implements OnInit {
     if (fileList.length > 0) {
       const file: File = fileList[0];
       // Por si nos interesa el tipo de archivo (e.g. image/jpeg)
-      const fileType = file.type;
+      // const fileType = file.type;
 
       // const author = firebase.auth().currentUser.uid;
 
@@ -62,12 +63,8 @@ export class FileUploaderComponent implements OnInit {
   }
 
   generateRandomName() {
-    let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (let i = 0; i < 5; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
+    const chance = new Chance();
+    const text = chance.string({length: 8, casing: 'upper', alpha: true, numeric: true});
 
     return text;
   }
