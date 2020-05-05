@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
       measurementId: ''
     };
 
+    //Commit de prueba para Sonar
+
     // Inicializamos el cliente de firebase
     firebase.initializeApp(firebaseConfig);
 
