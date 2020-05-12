@@ -31,5 +31,5 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
   ],
   providers: [UserService, RouteGuard, NotificationService, PostService, SpinnerService],
   bootstrap: [AppComponent]
-})
+)
 export class AppModule {}
