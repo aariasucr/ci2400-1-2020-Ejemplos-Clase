@@ -20,3 +20,8 @@ jobs:
       - name: Crear Build
         working-directory: ejemplo-clase
         run: npm run build
+
+      - name: Notificar en Slack
+        uses: rtCamp/action-slack-notify@v2.0.2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
