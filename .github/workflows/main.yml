@@ -40,4 +40,4 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_COLOR: danger
-          SLACK_TITLE: Error en el build @here
+          SLACK_TITLE: Error en el build
