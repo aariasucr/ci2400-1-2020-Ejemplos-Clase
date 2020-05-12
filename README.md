@@ -5,3 +5,5 @@ Ejemplo branch EC-15
 Otro cambio
 
 Cambio realizado por un colaborador del repositorio
+
+Otro cambio del colaborador
