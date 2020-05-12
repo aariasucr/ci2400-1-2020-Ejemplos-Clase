@@ -15,12 +15,20 @@ import {HeaderComponent} from './header/header.component';
 import {PostService} from './shared/post.service';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {SpinnerService} from './shared/spinner.service';
-import { AuthorComponent } from './author/author.component';
-import { NotificationComponent } from './notification/notification.component';
-import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import {AuthorComponent} from './author/author.component';
+import {NotificationComponent} from './notification/notification.component';
+import {FileUploaderComponent} from './file-uploader/file-uploader.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, HeaderComponent, AuthorComponent, NotificationComponent, FileUploaderComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    HeaderComponent,
+    AuthorComponent,
+    NotificationComponent,
+    FileUploaderComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,5 +39,5 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
   ],
   providers: [UserService, RouteGuard, NotificationService, PostService, SpinnerService],
   bootstrap: [AppComponent]
-)
+})
 export class AppModule {}
