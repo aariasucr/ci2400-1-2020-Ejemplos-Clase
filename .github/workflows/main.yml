@@ -1,0 +1,22 @@
+name: Construir App
+on: [push]
+jobs:
+  construir:
+    name: Construir App con Angular y NPM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Configurar Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Instalar Dependencias
+        working-directory: ejemplo-clase
+        run: npm install
+
+      - name: Crear Build
+        working-directory: ejemplo-clase
+        run: npm run build
