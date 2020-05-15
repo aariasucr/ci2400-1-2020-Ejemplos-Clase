@@ -17,6 +17,10 @@ jobs:
         working-directory: ejemplo-clase
         run: npm install
 
+      - name: Ejecutar Pruebas de Unidad
+        working-directory: ejemplo-clase
+        run: npm run ci:test
+
       - name: Crear Build
         working-directory: ejemplo-clase
         run: npm run build

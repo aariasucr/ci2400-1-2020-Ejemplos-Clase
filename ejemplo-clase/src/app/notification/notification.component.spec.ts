@@ -1,6 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NotificationComponent } from './notification.component';
+import {NotificationComponent} from './notification.component';
+import {ToastrModule} from 'ngx-toastr';
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;
@@ -8,9 +9,9 @@ describe('NotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationComponent ]
-    })
-    .compileComponents();
+      imports: [ToastrModule.forRoot()],
+      declarations: [NotificationComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
