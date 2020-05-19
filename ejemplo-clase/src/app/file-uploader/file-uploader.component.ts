@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input} from '@angular/core';
 import * as firebase from 'firebase';
+import {AngularFireStorage} from '@angular/fire/storage';
 import Chance from 'chance';
 
 @Component({
@@ -15,7 +16,7 @@ export class FileUploaderComponent implements OnInit {
   fileUrl = '';
   uploadStatus = '';
 
-  constructor() {}
+  constructor(private firebaseStorage: AngularFireStorage) {}
 
   ngOnInit() {}
 
@@ -37,7 +38,7 @@ export class FileUploaderComponent implements OnInit {
 
       const fileName = `posts/${this.author}/${this.generateRandomName()}.jpg`;
 
-      const storageRef = firebase.storage().ref();
+      const storageRef = this.firebaseStorage.storage.ref();
       this.uploadTask = storageRef.child(fileName).put(file);
 
       this.uploadTask.on(

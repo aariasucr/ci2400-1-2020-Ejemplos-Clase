@@ -6,10 +6,22 @@ import {NotificationComponent} from './notification/notification.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ToastrModule} from 'ngx-toastr';
 
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, NgxSpinnerModule, ToastrModule.forRoot()],
+      imports: [
+        RouterTestingModule,
+        NgxSpinnerModule,
+        ToastrModule.forRoot(),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule,
+        AngularFireDatabaseModule
+      ],
       declarations: [AppComponent, HeaderComponent, NotificationComponent]
     }).compileComponents();
   }));
@@ -26,10 +38,38 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('ejemplo-clase patito');
   });
 
-  xit('should render title in a h1 tag', () => {
+  it('should render main tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ejemplo-clase!');
+    expect(compiled.querySelector('main').textContent).toBeDefined();
+  });
+
+  it('should render app-header tag', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-header').textContent).toBeDefined();
+  });
+
+  it('should render app-notification tag', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-notification').textContent).toBeDefined();
+  });
+
+  it('should render router-outlet tag', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('router-outlet').textContent).toBeDefined();
+  });
+
+  it('should render ngx-spinner tag', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('ngx-spinner').textContent).toBeDefined();
   });
 });

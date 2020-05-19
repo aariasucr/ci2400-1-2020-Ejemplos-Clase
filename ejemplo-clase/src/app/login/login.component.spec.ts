@@ -8,13 +8,25 @@ import {AuthorComponent} from '../author/author.component';
 import {FileUploaderComponent} from '../file-uploader/file-uploader.component';
 import {ToastrModule} from 'ngx-toastr';
 
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../../environments/environment';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, AppRoutingModule, ToastrModule.forRoot()],
+      imports: [
+        FormsModule,
+        AppRoutingModule,
+        ToastrModule.forRoot(),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule,
+        AngularFireDatabaseModule
+      ],
       declarations: [LoginComponent, HomeComponent, AuthorComponent, FileUploaderComponent]
     }).compileComponents();
   }));

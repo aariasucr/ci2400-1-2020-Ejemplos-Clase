@@ -19,6 +19,12 @@ import {AuthorComponent} from './author/author.component';
 import {NotificationComponent} from './notification/notification.component';
 import {FileUploaderComponent} from './file-uploader/file-uploader.component';
 
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {environment} from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +41,11 @@ import {FileUploaderComponent} from './file-uploader/file-uploader.component';
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   providers: [UserService, RouteGuard, NotificationService, PostService, SpinnerService],
   bootstrap: [AppComponent]

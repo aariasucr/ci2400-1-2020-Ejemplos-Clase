@@ -1,6 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FileUploaderComponent } from './file-uploader.component';
+import {FileUploaderComponent} from './file-uploader.component';
+
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../../environments/environment';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 describe('FileUploaderComponent', () => {
   let component: FileUploaderComponent;
@@ -8,9 +14,14 @@ describe('FileUploaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileUploaderComponent ]
-    })
-    .compileComponents();
+      declarations: [FileUploaderComponent],
+      imports: [
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule,
+        AngularFireDatabaseModule,
+        AngularFireStorageModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

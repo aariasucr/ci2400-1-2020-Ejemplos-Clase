@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {UserService} from './user.service';
-import * as firebase from 'firebase';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable()
 export class RouteGuard implements CanActivate {
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private firebaseAuth: AngularFireAuth) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -15,7 +15,7 @@ export class RouteGuard implements CanActivate {
     return new Promise((resolve, reject) => {
       // Revise en firebase si el usuario cambio su estado de autenticacion
       // paso de logout a logged in o inverso
-      firebase.auth().onAuthStateChanged(user => {
+      this.firebaseAuth.onAuthStateChanged(user => {
         if (user) {
           resolve(true);
         } else {
