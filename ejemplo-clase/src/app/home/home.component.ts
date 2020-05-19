@@ -14,7 +14,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private posts: PostData[] = [];
+  public posts: PostData[] = [];
   postsRef: any;
   author = '';
   uploadedFileUrl = '';
@@ -33,19 +33,22 @@ export class HomeComponent implements OnInit {
     // console.log(this.posts);
 
     this.firebaseAuth.currentUser.then(userData => {
-      this.author = userData.uid;
+      // console.log('userData en el componente', userData);
+      if (!!userData && 'uid' in userData && !!userData.uid) {
+        this.author = userData.uid;
 
-      this.firebaseDatabase
-        .list(`posts/${this.author}`, ref => ref.limitToLast(100).orderByChild('created'))
-        .snapshotChanges()
-        .subscribe(data => {
-          console.log(data);
-          this.posts = data.map(e => {
-            return {
-              ...(e.payload.val() as PostData)
-            };
+        this.firebaseDatabase
+          .list(`posts/${this.author}`, ref => ref.limitToLast(100).orderByChild('created'))
+          .snapshotChanges()
+          .subscribe(data => {
+            console.log(data);
+            this.posts = data.map(e => {
+              return {
+                ...(e.payload.val() as PostData)
+              };
+            });
           });
-        });
+      }
     });
 
     // this.author = firebase.auth().currentUser.uid;
@@ -89,7 +92,6 @@ export class HomeComponent implements OnInit {
             .addNewPostAsync(title, content, userData.val().userName, this.uploadedFileUrl)
             .then(results => {
               this.notificationServie.showSuccessMessage('Todo bien!', 'Publicación Creada');
-              form.reset();
               // this.posts = this.postService.getAllPosts();
               this.spinnerService.hideMainSpinner();
             })
@@ -103,6 +105,7 @@ export class HomeComponent implements OnInit {
         this.spinnerService.hideMainSpinner();
         this.notificationServie.showErrorMessage('Error', err);
       });
+    form.reset();
   }
 
   onImagePicked(imageUrl: string) {
