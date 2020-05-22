@@ -28,7 +28,7 @@ on: [push, pull_request]
 Calendarizado (formato cron)
 
 ```yaml
-on: Cada 15 minutos
+name: Cada 15 minutos
 on:
   schedule:
     - cron: "*/15 * * * *"
