@@ -1,0 +1,6 @@
+version: "2"
+services:
+  php_build:
+    image: php:7.2-apache
+    volumes:
+      - ".:/var/www/html"
