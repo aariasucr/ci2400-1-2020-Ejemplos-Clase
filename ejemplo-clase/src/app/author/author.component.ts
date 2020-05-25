@@ -9,8 +9,8 @@ import {PostService} from '../shared/post.service';
   styleUrls: ['./author.component.css']
 })
 export class AuthorComponent implements OnInit {
-  private authorName = null;
-  private posts: PostData[];
+  public authorName = null;
+  public posts: PostData[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
