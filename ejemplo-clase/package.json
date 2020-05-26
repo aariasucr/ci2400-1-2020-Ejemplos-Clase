@@ -23,6 +23,7 @@
     "@angular/router": "~8.2.14",
     "bootstrap": "^4.4.1",
     "chance": "^1.1.4",
+    "configcat-js": "^4.0.2",
     "firebase": "^7.14.1",
     "jquery": "^3.4.1",
     "ngx-spinner": "^9.0.2",

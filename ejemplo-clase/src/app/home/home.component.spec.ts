@@ -13,6 +13,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {SpinnerService} from '../shared/spinner.service';
+import {ConfigService} from '../shared/config.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -43,6 +44,12 @@ describe('HomeComponent', () => {
   let spinnerService: SpinnerService;
   let spinnerSpy: jasmine.Spy;
 
+  const mockConfig: any = {
+    getConfig() {
+      return Promise.resolve(true);
+    }
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -59,7 +66,8 @@ describe('HomeComponent', () => {
       providers: [
         {provide: AngularFireAuth, useValue: mockAngularFireAuth},
         {provide: AngularFireDatabase, useValue: mockDatabase},
-        {provide: AngularFireStorage, useValue: null}
+        {provide: AngularFireStorage, useValue: null},
+        {provide: ConfigService, useValue: mockConfig}
       ]
     }).compileComponents();
   }));

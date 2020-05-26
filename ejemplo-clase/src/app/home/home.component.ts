@@ -7,6 +7,7 @@ import {SpinnerService} from '../shared/spinner.service';
 import {UserService} from '../shared/user.service';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {ConfigService} from '../shared/config.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
   postsRef: any;
   author = '';
   uploadedFileUrl = '';
+  pageTitle = '';
 
   constructor(
     private postService: PostService,
@@ -25,10 +27,20 @@ export class HomeComponent implements OnInit {
     private spinnerService: SpinnerService,
     private userService: UserService,
     private firebaseDatabase: AngularFireDatabase,
-    private firebaseAuth: AngularFireAuth
+    private firebaseAuth: AngularFireAuth,
+    private configService: ConfigService
   ) {}
 
   ngOnInit() {
+    this.configService.getConfig('isAwesomeFeatureEnabled').then(value => {
+      console.log('isAwesomeFeatureEnabled: ' + value);
+      if (!!value) {
+        this.pageTitle = 'Super Titulazo Nuevo!';
+      } else {
+        this.pageTitle = 'Mis Publicaciones Anteriores';
+      }
+    });
+
     // this.posts = this.postService.getAllPosts();
     // console.log(this.posts);
 
