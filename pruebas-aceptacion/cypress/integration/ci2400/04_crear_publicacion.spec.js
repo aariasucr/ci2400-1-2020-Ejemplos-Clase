@@ -1,11 +1,14 @@
 /// <reference types="Cypress" />
 
-context('Login y Logout', () => {
+import Chance from 'chance'
+const chance = new Chance()
+
+context('Crear publicacion', () => {
   beforeEach(() => {
     cy.visit('')
   })
 
-  it('Hacer login', () => {
+  it('Hacer login y crear publicacion', () => {
     cy.get('#email').should('be.visible')
     cy.get('#email').should('be.enabled')
 
@@ -18,8 +21,17 @@ context('Login y Logout', () => {
 
     // Validar que si hice log in
     cy.get('.navbar-brand').should('contain.text', 'Juan Perez')
-
     cy.get('#navbarsExampleDefault li').should('have.length', 4)
+
+    const postTitle = chance.sentence({words: 3})
+    const postContent = chance.paragraph({sentences: 3})
+
+    cy.get('[data-test=post-title]').type(postTitle)
+    cy.get('[data-test=post-content]').type(postTitle)
+    cy.get('[data-test=submit-post-button').click()
+
+    cy.get('html').should('contain.text', postTitle)
+    cy.get('html').should('contain.text', postContent)
 
     cy.get('#navbarsExampleDefault a').contains('Logout').click()
   })

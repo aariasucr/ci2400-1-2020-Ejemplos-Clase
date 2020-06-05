@@ -1,3 +1,7 @@
 {
-  "projectId": "5rxywz"
+  "projectId": "5rxywz",
+  "baseUrl": "https://ejemplo-ci2400.firebaseapp.com",
+  "viewportHeight": 1024,
+  "viewportWidth": 1280,
+  "defaultCommandTimeout": 20000
 }

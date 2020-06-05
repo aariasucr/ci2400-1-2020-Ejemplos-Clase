@@ -45,6 +45,7 @@
             id="title"
             name="title"
             placeholder="Título"
+            data-test="post-title"
             ngModel
             required
           />
@@ -55,12 +56,24 @@
           Contenido
         </div>
         <div class="col-6">
-          <textarea ngModel id="content" name="content" required placeholder="Contenido"></textarea>
+          <textarea
+            ngModel
+            id="content"
+            name="content"
+            required
+            placeholder="Contenido"
+            data-test="post-content"
+          ></textarea>
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-2 mb-3 mb-sm-0">
-          <button type="submit" class="btn btn-success btn-icon-split" [disabled]="!f.valid">
+          <button
+            type="submit"
+            class="btn btn-success btn-icon-split"
+            data-test="submit-post-button"
+            [disabled]="!f.valid"
+          >
             Publicar
           </button>
         </div>

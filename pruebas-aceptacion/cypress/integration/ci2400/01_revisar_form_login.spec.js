@@ -2,7 +2,7 @@
 
 context('Formulario de Login', () => {
   beforeEach(() => {
-    cy.visit('https://ejemplo-ci2400.firebaseapp.com/')
+    cy.visit('')
   })
 
   it('Revisar validaciones formulario login', () => {

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-4">
+  <div class="col-lg-6">
     <form class="user" (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="form-group">
         <input
@@ -24,7 +24,8 @@
           placeholder="Password"
         />
       </div>
-      <button type="submit" class="btn btn-primary btn-block botonbonito" [disabled]="!f.valid">
+      <!-- <button type="submit" class="btn btn-primary btn-block botonbonito" [disabled]="!f.valid"> -->
+      <button type="submit" class="btn btn-primary btn-block botonbonito">
         Login
       </button>
     </form>
