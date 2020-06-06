@@ -12,6 +12,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../../environments/environment';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -27,7 +28,8 @@ describe('LoginComponent', () => {
         AngularFireAuthModule,
         AngularFireDatabaseModule
       ],
-      declarations: [LoginComponent, HomeComponent, AuthorComponent, FileUploaderComponent]
+      declarations: [LoginComponent, HomeComponent, AuthorComponent, FileUploaderComponent],
+      providers: [{provide: AngularFirePerformance, useValue: null}]
     }).compileComponents();
   }));
 

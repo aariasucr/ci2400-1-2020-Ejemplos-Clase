@@ -15,11 +15,11 @@ context('Formulario de Login', () => {
     cy.get('#password').should('be.enabled')
 
     cy.get('button.botonbonito').should('be.visible')
-    cy.get('button.botonbonito').should('not.be.enabled')
+    // cy.get('button.botonbonito').should('not.be.enabled')
 
     // cy.get('#email').type('patito@patito.com')
     cy.get('#email').type('incorrecto@incorrecto.com')
-    cy.get('button.botonbonito').should('not.be.enabled')
+    // cy.get('button.botonbonito').should('not.be.enabled')
 
     cy.get('#password').type('123456')
 

@@ -27,11 +27,11 @@ context('Crear publicacion', () => {
     const postContent = chance.paragraph({sentences: 3})
 
     cy.get('[data-test=post-title]').type(postTitle)
-    cy.get('[data-test=post-content]').type(postTitle)
+    cy.get('[data-test=post-content]').type(postContent)
     cy.get('[data-test=submit-post-button').click()
 
-    cy.get('html').should('contain.text', postTitle)
-    cy.get('html').should('contain.text', postContent)
+    cy.get('tbody').should('contain.text', postTitle)
+    cy.get('tbody').should('contain.text', postContent)
 
     cy.get('#navbarsExampleDefault a').contains('Logout').click()
   })
