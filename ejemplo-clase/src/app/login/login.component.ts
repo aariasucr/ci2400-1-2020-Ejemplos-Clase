@@ -14,6 +14,7 @@ import * as firebase from 'firebase';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   screenTrace: firebase.performance.Trace;
+  loginTrace: firebase.performance.Trace;
 
   constructor(
     private userService: UserService,
@@ -29,6 +30,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.screenTrace = trace;
         this.screenTrace.start();
       });
+      this.firebasePerf.trace('userLogin').then(trace => {
+        this.loginTrace = trace;
+      });
     }
   }
 
@@ -42,16 +46,22 @@ export class LoginComponent implements OnInit, OnDestroy {
     const email = form.value.email;
     const password = form.value.password;
 
+    this.startLoginTrace();
+
     this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
       .then(userData => {
+        this.trackLoginTraceAttribute('emailVerified', `${userData.user.emailVerified}`);
         this.userService.performLogin(userData.user.uid);
         this.router.navigate(['/home']);
         // console.log('userData', userData);
       })
       .catch(error => {
+        this.trackLoginTraceAttribute('errorCode', `${error.code}`);
         this.notificationService.showErrorMessage('Error iniciando sesión', error.message);
       });
+
+    this.stopLoginTrace();
 
     // if (email === 'test@test.com' && password === 'test123') {
     //   console.log('usuario correcto');
@@ -64,5 +74,26 @@ export class LoginComponent implements OnInit, OnDestroy {
     //   // Notificar con un banner casero
     //   // this.notificationService.displayBanner('error', 'Error al hacer login');
     // }
+  }
+
+  stopLoginTrace() {
+    if (!!this.firebasePerf && !!this.loginTrace) {
+      this.loginTrace.stop();
+      this.firebasePerf.trace('userLogin').then(trace => {
+        this.loginTrace = trace;
+      });
+    }
+  }
+
+  startLoginTrace() {
+    if (!!this.firebasePerf && !!this.loginTrace) {
+      this.loginTrace.start();
+    }
+  }
+
+  trackLoginTraceAttribute(attributeName: string, value: any) {
+    if (!!this.firebasePerf && !!this.loginTrace) {
+      this.loginTrace.putAttribute(attributeName, value);
+    }
   }
 }
