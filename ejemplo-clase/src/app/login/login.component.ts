@@ -52,16 +52,16 @@ export class LoginComponent implements OnInit, OnDestroy {
       .signInWithEmailAndPassword(email, password)
       .then(userData => {
         this.trackLoginTraceAttribute('emailVerified', `${userData.user.emailVerified}`);
+        this.stopLoginTrace();
         this.userService.performLogin(userData.user.uid);
         this.router.navigate(['/home']);
         // console.log('userData', userData);
       })
       .catch(error => {
         this.trackLoginTraceAttribute('errorCode', `${error.code}`);
+        this.stopLoginTrace();
         this.notificationService.showErrorMessage('Error iniciando sesión', error.message);
       });
-
-    this.stopLoginTrace();
 
     // if (email === 'test@test.com' && password === 'test123') {
     //   console.log('usuario correcto');
