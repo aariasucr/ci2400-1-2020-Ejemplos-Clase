@@ -3,31 +3,31 @@ package com.ci2400.ejemplo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-import java.util.Enumeration;
 
 public class Customer {
+  private String name;
+  private List<Rental> myRentals = new ArrayList<Rental>();
+
   public Customer(String name) {
     this.name = name;
   }
 
   public void addRental(Rental rental) {
-    rentals.addElement(rental);
+    myRentals.add(rental);
   }
 
   public String getName() {
     return name;
   }
 
-  public String statement() {
+  public String generateStatement() {
     double totalAmount = 0;
     int frequentRenterPoints = 0;
-    Enumeration rentals = this.rentals.elements();
-    String result = "Rental Record for " + getName() + "\n";
+    StringBuilder statementResult = new StringBuilder();
+    statementResult.append("Rental Record for ").append(getName()).append("\n");
 
-    while (rentals.hasMoreElements()) {
+    for(Rental each : myRentals){
       double thisAmount = 0;
-      Rental each = (Rental) rentals.nextElement();
 
       // determines the amount for each line
       switch (each.getMovie().getPriceCode()) {
@@ -44,6 +44,8 @@ public class Customer {
           if (each.getDaysRented() > 3)
             thisAmount += (each.getDaysRented() - 3) * 1.5;
           break;
+        default:
+          throw new RuntimeException("Movie case [" + each.getMovie().getPriceCode() + "] not implemented");
       }
 
       frequentRenterPoints++;
@@ -52,20 +54,15 @@ public class Customer {
         && each.getDaysRented() > 1)
         frequentRenterPoints++;
 
-      result += "\t" + each.getMovie().getTitle() + "\t"
-        + String.valueOf(thisAmount) + "\n";
+      statementResult.append("\t").append(each.getMovie().getTitle()).append("\t").append(thisAmount).append("\n");
+
       totalAmount += thisAmount;
 
     }
+    statementResult.append("You owed ").append(totalAmount).append("\n");
+    statementResult.append("You earned ").append(frequentRenterPoints).append(" frequent renter points\n");
 
-    result += "You owed " + String.valueOf(totalAmount) + "\n";
-    result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points\n";
 
-
-    return result;
+    return statementResult.toString();
   }
-
-
-  private String name;
-  private Vector rentals = new Vector();
 }
