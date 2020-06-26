@@ -1,0 +1,14 @@
+version: "3"
+services:
+  python-mysql:
+    container_name: python-mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: daticos
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5306:3306"
+    restart: always

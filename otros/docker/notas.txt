@@ -1,0 +1,10 @@
+Crear contenedor con PostgreSQL
+
+# postgres sin puertos abiertos (interactivo)
+docker run --name ejemplo-postgres -e POSTGRES_PASSWORD=mysecretpassword -i postgres
+
+# postgres con puertos abiertos (interactivo)
+docker run --name ejemplo-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -i postgres
+
+# postgres con puertos abiertos (detached)
+docker run --name ejemplo-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
